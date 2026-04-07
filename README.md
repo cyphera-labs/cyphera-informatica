@@ -16,7 +16,7 @@ Produces `target/cyphera-informatica-0.1.0.jar` (fat JAR, Java 8 compatible).
 
 1. Copy `cyphera-informatica-0.1.0.jar` to the PowerCenter Java transformation classpath
 2. In the mapping, add a Java Transformation
-3. Call `dev.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", inputField)` in the transform logic
+3. Call `io.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", inputField)` in the transform logic
 
 ## Deploy to IDMC (Informatica Cloud)
 
@@ -28,10 +28,10 @@ Produces `target/cyphera-informatica-0.1.0.jar` (fat JAR, Java 8 compatible).
 In a Java Transformation expression:
 ```java
 // Encrypt
-String encrypted = dev.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", input_ssn);
+String encrypted = io.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", input_ssn);
 
 // Decrypt
-String decrypted = dev.cyphera.informatica.CypheraTransformation.cyphera_unprotect("ssn", encrypted_ssn);
+String decrypted = io.cyphera.informatica.CypheraTransformation.cyphera_unprotect("ssn", encrypted_ssn);
 ```
 
 ## Policy Configuration
