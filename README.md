@@ -31,7 +31,7 @@ In a Java Transformation expression:
 String encrypted = io.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", input_ssn);
 
 // Decrypt
-String decrypted = io.cyphera.informatica.CypheraTransformation.cyphera_unprotect("ssn", encrypted_ssn);
+String decrypted = io.cyphera.informatica.CypheraTransformation.cyphera_access("ssn", encrypted_ssn);
 ```
 
 ## Policy Configuration

@@ -19,7 +19,7 @@ public final class CypheraTransformation {
         catch (Exception e) { return "[error: " + e.getMessage() + "]"; }
     }
 
-    public static String cyphera_unprotect(String protectedValue) {
+    public static String cyphera_access(String protectedValue) {
         try { return CLIENT.access(protectedValue); }
         catch (Exception e) { return "[error: " + e.getMessage() + "]"; }
     }
