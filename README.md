@@ -36,4 +36,4 @@ String decrypted = io.cyphera.informatica.CypheraTransformation.cyphera_access("
 
 ## Policy Configuration
 
-Place `cyphera.yaml` at `/etc/cyphera/cyphera.yaml` or set the `CYPHERA_POLICY_FILE` environment variable.
+Place `cyphera.json` at `/etc/cyphera/cyphera.json` or set the `CYPHERA_POLICY_FILE` environment variable.

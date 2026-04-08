@@ -1,11 +1,7 @@
 package io.cyphera.informatica;
 
 import io.cyphera.Cyphera;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,17 +11,16 @@ public final class CypheraLoader {
 
     private CypheraLoader() {}
 
-    @SuppressWarnings("unchecked")
     public static Cyphera getInstance() {
         if (instance == null) {
             synchronized (CypheraLoader.class) {
                 if (instance == null) {
                     String path = System.getProperty("cyphera.policy.file",
-                            System.getenv().getOrDefault("CYPHERA_POLICY_FILE", "/etc/cyphera/cyphera.yaml"));
-                    try (InputStream in = new FileInputStream(path)) {
-                        Yaml yaml = new Yaml();
-                        Map<String, Object> config = yaml.load(in);
-                        instance = Cyphera.fromMap(config);
+                            System.getenv() != null && System.getenv().containsKey("CYPHERA_POLICY_FILE")
+                                ? System.getenv("CYPHERA_POLICY_FILE")
+                                : "/etc/cyphera/cyphera.json");
+                    try {
+                        instance = Cyphera.fromFile(path);
                         LOG.info("Cyphera SDK loaded from " + path);
                     } catch (Exception e) {
                         LOG.log(Level.SEVERE, "Failed to load Cyphera config: " + path, e);
