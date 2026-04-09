@@ -27,11 +27,13 @@ Produces `target/cyphera-informatica-0.1.0.jar` (fat JAR, Java 8 compatible).
 
 In a Java Transformation expression:
 ```java
-// Encrypt
-String encrypted = io.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", input_ssn);
+// Protect with a named policy
+String protectedValue = io.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", input_ssn);
+// → "T01948372150" (tagged, format preserved)
 
-// Decrypt
-String decrypted = io.cyphera.informatica.CypheraTransformation.cyphera_access("ssn", encrypted_ssn);
+// Access — tag tells Cyphera which policy to use
+String accessed = io.cyphera.informatica.CypheraTransformation.cyphera_access(protectedValue);
+// → original SSN
 ```
 
 ## Policy Configuration
