@@ -1,6 +1,7 @@
 # cyphera-informatica
 
 [![CI](https://github.com/cyphera-labs/cyphera-informatica/actions/workflows/ci.yml/badge.svg)](https://github.com/cyphera-labs/cyphera-informatica/actions/workflows/ci.yml)
+[![Security](https://github.com/cyphera-labs/cyphera-informatica/actions/workflows/codeql.yml/badge.svg)](https://github.com/cyphera-labs/cyphera-informatica/actions/workflows/codeql.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
 Format-preserving encryption for [Informatica](https://www.informatica.com/) — Java transformation powered by Cyphera.
