@@ -39,20 +39,20 @@ docker build -t cyphera-informatica .
 1. Upload `cyphera-informatica-0.1.0.jar` as a custom library
 2. Reference in a Java transformation within your mapping
 
-### Policy Configuration
+### Configuration
 
-Place `cyphera.json` at `/etc/cyphera/cyphera.json` or set the `CYPHERA_POLICY_FILE` environment variable.
+Place `cyphera.json` at `/etc/cyphera/cyphera.json` or set the `CYPHERA_CONFIGURATION_FILE` environment variable.
 
 ## Usage
 
 In a Java Transformation expression:
 
 ```java
-// Protect with a named policy
+// Protect with a named configuration
 String protectedValue = io.cyphera.informatica.CypheraTransformation.cyphera_protect("ssn", input_ssn);
-// → "T01i6J-xF-07pX" (tagged, dashes preserved)
+// → "T01i6J-xF-07pX" (header-prefixed, dashes preserved)
 
-// Access — tag tells Cyphera which policy to use
+// Access — the embedded header tells Cyphera which configuration to use
 String accessed = io.cyphera.informatica.CypheraTransformation.cyphera_access(protectedValue);
 // → original SSN
 ```
@@ -61,18 +61,18 @@ String accessed = io.cyphera.informatica.CypheraTransformation.cyphera_access(pr
 
 | Method | Description |
 |--------|-------------|
-| `cyphera_protect(policy, value)` | Protect using a named policy |
-| `cyphera_access(protectedValue)` | Access using tag-based policy lookup |
-| `cyphera_access(policy, protectedValue)` | Access with explicit policy name |
+| `cyphera_protect(configuration, value)` | Protect using a named configuration |
+| `cyphera_access(protectedValue)` | Access using the embedded header (primary) |
+| `cyphera_access(configuration, protectedValue)` | Access with explicit configuration name (escape hatch for headerless configurations) |
 
 ## Operations
 
-### Policy Configuration
+### Configuration
 
-- Policy file: `/etc/cyphera/cyphera.json` or `CYPHERA_POLICY_FILE` env var
+- Configuration file: `/etc/cyphera/cyphera.json` or `CYPHERA_CONFIGURATION_FILE` env var
 - For PowerCenter: set env var on the Integration Service
 - For IDMC: set env var in the Secure Agent configuration
-- Policy loaded on first call — restart the service to reload
+- Configuration loaded on first call — restart the service to reload
 
 ### Monitoring
 
@@ -88,16 +88,16 @@ String accessed = io.cyphera.informatica.CypheraTransformation.cyphera_access(pr
 ### Troubleshooting
 
 - **ClassNotFoundException** — JAR not on the classpath. Verify placement and restart.
-- **"Unknown policy"** — policy file not found or policy name misspelled
+- **"Unknown configuration"** — configuration file not found or configuration name misspelled
 - **Java version mismatch** — this JAR requires Java 8+. Check your Informatica JRE version.
 
-## Policy File
+## Configuration File
 
 ```json
 {
-  "policies": {
-    "ssn": { "engine": "ff1", "key_ref": "demo-key", "tag": "T01" },
-    "credit_card": { "engine": "ff1", "key_ref": "demo-key", "tag": "T02" }
+  "configurations": {
+    "ssn": { "engine": "ff1", "key_ref": "demo-key", "header": "T01" },
+    "credit_card": { "engine": "ff1", "key_ref": "demo-key", "header": "T02" }
   },
   "keys": {
     "demo-key": { "material": "2B7E151628AED2A6ABF7158809CF4F3C" }
